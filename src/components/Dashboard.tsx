@@ -1,5 +1,5 @@
 // src/components/AnalyticsDashboard.tsx
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   BarChart,
@@ -19,43 +19,57 @@ import {
   ArrowUpIcon,
 } from "@heroicons/react/24/outline";
 
-// Mock data
-const revenueData = [
-  { month: "Jan", revenue: 4000 },
-  { month: "Feb", revenue: 3000 },
-  { month: "Mar", revenue: 5000 },
-  { month: "Apr", revenue: 4780 },
-  { month: "May", revenue: 5890 },
-  { month: "Jun", revenue: 6390 },
-];
-
-const paymentsData = [
-  { day: "Mon", payments: 24 },
-  { day: "Tue", payments: 18 },
-  { day: "Wed", payments: 32 },
-  { day: "Thu", payments: 27 },
-  { day: "Fri", payments: 35 },
-  { day: "Sat", payments: 20 },
-  { day: "Sun", payments: 15 },
-];
+import { getPayments } from "../services/dataService";
 
 export default function AnalyticsDashboard() {
+  const [kpi, setKpi] = useState<{
+    totalPayments: number;
+    totalAmount: number;
+    averageAmount: number;
+  } | null>(null);
+
+  // Mock charts data
+  const revenueData = [
+    { month: "Jan", revenue: 4000 },
+    { month: "Feb", revenue: 3000 },
+    { month: "Mar", revenue: 5000 },
+    { month: "Apr", revenue: 4780 },
+    { month: "May", revenue: 5890 },
+    { month: "Jun", revenue: 6390 },
+  ];
+
+  const paymentsData = [
+    { day: "Mon", payments: 24 },
+    { day: "Tue", payments: 18 },
+    { day: "Wed", payments: 32 },
+    { day: "Thu", payments: 27 },
+    { day: "Fri", payments: 35 },
+    { day: "Sat", payments: 20 },
+    { day: "Sun", payments: 15 },
+  ];
+
+  useEffect(() => {
+    getPayments().then(setKpi);
+  }, []);
+
+  if (!kpi) return <div>Loading...</div>;
+
   const kpis = [
     {
       title: "Total Revenue",
-      value: "$28,060",
+      value: `$${Number(kpi?.totalAmount || 0).toLocaleString()}`,
       color: "from-teal-400 to-teal-600",
       icon: <CurrencyDollarIcon className="w-6 h-6 mb-2" />,
     },
     {
       title: "Total Payments",
-      value: "171",
+      value: `$${Number(kpi?.totalPayments || 0).toLocaleString()}`,
       color: "from-purple-400 to-purple-600",
       icon: <DocumentTextIcon className="w-6 h-6 mb-2" />,
     },
     {
-      title: "Conversion Rate",
-      value: "3.2%",
+      title: "Average Payment",
+      value: `$${Number(kpi?.averageAmount || 0).toLocaleString()}`,
       color: "from-blue-400 to-blue-600",
       icon: <ArrowUpIcon className="w-6 h-6 mb-2" />,
     },

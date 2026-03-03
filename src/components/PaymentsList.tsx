@@ -1,8 +1,7 @@
 // src/components/PaymentsList.tsx
-import React, { useState } from "react";
-import { paymentsData } from "../mockData";
+import React, { useEffect, useState } from "react";
 import SinglePaymentView from "./SinglePaymentView";
-
+import { getPayments } from "../services/dataService";
 interface Payment {
   id: string;
   amount: number;
@@ -14,11 +13,16 @@ interface Payment {
 const ITEMS_PER_PAGE = 5;
 
 const PaymentsList: React.FC = () => {
+  const [payments, setPayments] = useState<Payment[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [statusFilter, setStatusFilter] = useState("");
   const [startDateFilter, setStartDateFilter] = useState("");
   const [endDateFilter, setEndDateFilter] = useState("");
   const [selectedPayment, setSelectedPayment] = useState<Payment | null>(null);
+
+  useEffect(() => {
+    getPayments().then(setPayments);
+  }, []);
 
   const formatDate = (timestamp: number) => {
     const date = new Date(timestamp * 1000);
@@ -46,7 +50,7 @@ const PaymentsList: React.FC = () => {
     setCurrentPage(1);
   };
 
-  const filteredData = paymentsData.filter((payment) => {
+  const filteredData = payments.filter((payment) => {
     const paymentDate = new Date(payment.createdAt * 1000);
 
     if (statusFilter && payment.status !== statusFilter) return false;
@@ -78,7 +82,7 @@ const PaymentsList: React.FC = () => {
       <div className="max-w-6xl mx-auto space-y-8">
         <h1 className="text-3xl font-bold">Payments</h1>
 
-        {/* Filters Card */}
+        {/* Filters */}
         <div className="bg-white p-6 rounded-2xl shadow-sm flex flex-wrap gap-4 items-end">
           <div>
             <label className="block text-sm font-medium mb-1">Status</label>
@@ -130,7 +134,7 @@ const PaymentsList: React.FC = () => {
           </button>
         </div>
 
-        {/* Table Card */}
+        {/* Table */}
         <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
           {currentItems.length === 0 ? (
             <div className="p-10 text-center text-gray-500">
@@ -182,7 +186,6 @@ const PaymentsList: React.FC = () => {
                 <span className="text-sm text-gray-500">
                   Page {currentPage} of {totalPages || 1}
                 </span>
-
                 <div className="space-x-2">
                   <button
                     className="px-4 py-2 bg-gray-200 rounded-lg disabled:opacity-50"

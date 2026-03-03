@@ -1,46 +1,112 @@
-# Getting Started with Create React App
+# MONEI Frontend Dashboard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a **React + TypeScript dashboard application** built as a solution for the MONEI Frontend Candidate Test.  
+It demonstrates the ability to create a maintainable, responsive, and visually appealing UI with mock payment data, modern components, and interactive features.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🛠️ Features
 
-### `npm start`
+- **Analytics Dashboard**
+  - Displays Key Performance Indicators (KPIs) such as total payments, total amount, and status breakdown.
+  - Modern cards with gradients, hover effects, and responsive design.
+  - Ready to integrate with real GraphQL API when available.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- **Payments List**
+  - Paginated table showing individual payments.
+  - Filters by status and date range.
+  - Hover effects and tooltips for better UX.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- **Single Payment View**
+  - Detailed view of a payment including metadata and references.
+  - Accessible by clicking a payment from the list.
 
-### `npm test`
+- **Sidebar Navigation**
+  - Collapsible sidebar with icons.
+  - Tooltips when collapsed.
+  - Custom logo integrated.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Top Bar**
+  - Profile button with gradient hover effects.
+  - Fully responsive layout.
 
-### `npm run build`
+- **Mock Data Implementation**
+  - Since the provided GraphQL endpoint was not accessible (network errors / staging restrictions), the app uses mock data for all views.
+  - The code is structured so that switching to the real API is straightforward.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🎨 Design Choices
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Gradients for cards and buttons to create a modern SaaS look.
+- Shadow and hover effects on tables and KPI cards for better visual hierarchy.
+- Sidebar toggle to save space on smaller screens.
+- Responsive layout using **Tailwind CSS**.
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## ⚡ Getting Started
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 1. Clone the repository
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```bash
+git clone https://github.com/AzharAlbakri/monei-dashboard.git
+cd monei-dashboard
+2. Install dependencies
+npm install
+3. Create a .env file (Optional for API integration)
+REACT_APP_API_KEY=your_api_key_here
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Note: For this submission, the app uses mock data and does not require the real API key.
 
-## Learn More
+4. Run the development server
+npm start
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Open http://localhost:3000
+ to view it in the browser.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+5. Build for production
+npm run build
+🧩 Folder Structure
+src/
+├─ components/       # React components (Dashboard, PaymentsList, Sidebar, TopBar, etc.)
+├─ mockData/         # Mock payment data for testing
+├─ services/         # Functions to fetch data (currently returning mock data)
+├─ App.tsx           # Main app with routing
+└─ index.tsx         # React entry point
+🌐 Deployment
+
+The project is deployed on Vercel and can be accessed online:
+
+View https://monei-dashboard.vercel.app/
+Replace the above URL with your actual Vercel deployment link.
+
+💡 Notes on API Access
+
+The GraphQL endpoint provided in the test was not accessible from my environment (network error "Failed to fetch").
+As a result, the app uses mock data to simulate API responses:
+
+Dashboard KPIs
+
+Payments List
+
+Single Payment view
+
+The code is ready to switch to the real API when access is granted.
+
+🔗 Learn More
+
+React Documentation
+
+Tailwind CSS
+
+React Router
+
+Framer Motion
+
+Recharts
+
+👨‍💻 Author
+
+Azhar Albakri – Candidate for MONEI Frontend Test
+```

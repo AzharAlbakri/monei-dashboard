@@ -54,9 +54,17 @@ export default function Sidebar({ sidebarOpen, toggleSidebar }: SidebarProps) {
           <div key={item.name} className="relative group">
             <Link
               to={item.path}
-              className={`flex items-center px-6 py-3 text-gray-700 hover:bg-gradient-to-r hover:from-teal-400 hover:to-teal-600 rounded-lg mb-1 transition ${
+              className={`flex items-center px-6 py-3 text-gray-700 mb-1 transition ${
                 sidebarOpen ? "" : "justify-center"
               }`}
+              style={{
+                background: "white", // خلفية افتراضية
+              }}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.background =
+                  "linear-gradient(-135deg, rgb(170, 181, 234) 0%, rgb(65, 215, 189) 100%)")
+              }
+              onMouseLeave={(e) => (e.currentTarget.style.background = "white")}
             >
               {React.cloneElement(item.icon, {
                 className: `${sidebarOpen ? "w-5 h-5 mr-2" : "w-6 h-6"} text-gray-700`,

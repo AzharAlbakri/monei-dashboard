@@ -1,3 +1,4 @@
+// src/components/SinglePaymentView.tsx
 import React from "react";
 
 interface Payment {
@@ -16,17 +17,10 @@ interface Props {
 const SinglePaymentView: React.FC<Props> = ({ payment, onBack }) => {
   if (!payment) return null;
 
-  const formatDate = (timestamp: number) => {
-    const date = new Date(timestamp * 1000);
-    return date.toLocaleDateString() + " " + date.toLocaleTimeString();
-  };
-
-  const formatCurrency = (amount: number) => {
-    return amount.toLocaleString("en-US", {
-      style: "currency",
-      currency: "USD",
-    });
-  };
+  const formatDate = (timestamp: number) =>
+    new Date(timestamp * 1000).toLocaleString();
+  const formatCurrency = (amount: number) =>
+    amount.toLocaleString("en-US", { style: "currency", currency: "USD" });
 
   const getStatusBadge = (status: string) => {
     const base = "px-3 py-1 text-sm font-semibold rounded-full";
